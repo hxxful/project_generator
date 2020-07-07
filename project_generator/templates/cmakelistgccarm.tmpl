@@ -67,13 +67,14 @@ set(OBJECT_FILES ${OBJECT_FILES} "{{file}}"){% endfor %}
 set(COMMON_FLAGS "-mcpu={{core}} {% for flag in misc['common_flags'] %} {{flag}}{% endfor %}")
 set(CMAKE_CXX_FLAGS "${COMMON_FLAGS} ${DEFINES} {% for flag in misc['cxx_flags'] %} {{flag}}{% endfor %}")
 set(CMAKE_C_FLAGS "${COMMON_FLAGS} ${DEFINES} {% for flag in misc['c_flags'] %} {{flag}}{% endfor %}")
+set(CMAKE_ASM_FLAGS "${COMMON_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "-mcpu={{core}} {% for flag in misc['linker_flags'] %} {{flag}}{% endfor %}")
 
 {% if linker_options %}
 set(CMAKE_EXE_LINKER_FLAGS "{{linker_options}}"){% endif %}
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \"-T{{linker_file}}\" -static")
 
-set(EXECUTABLE_OUTPUT_PATH {{build_dir}})
+#set(EXECUTABLE_OUTPUT_PATH {{build_dir}})
 
 {# Lib or exe #}
 {% if output_type == 'exe' %}
@@ -92,9 +93,9 @@ target_link_libraries({{name}} -Wl,--end-group)
 {% endif %}
 
 # Map file
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Xlinker -Map=${CMAKE_CURRENT_SOURCE_DIR}/{{build_dir}}/{{name}}.map")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Xlinker -Map=${CMAKE_BINARY_DIR}/{{name}}.map")
 
 # Create bin and hex
-add_custom_command(TARGET {{name}} POST_BUILD COMMAND "${ARM_NONE_EABI_OBJCOPY}" -O binary ${CMAKE_CURRENT_SOURCE_DIR}/{{build_dir}}/{{name}} ${CMAKE_CURRENT_SOURCE_DIR}/{{build_dir}}/{{name}}.bin)
-add_custom_command(TARGET {{name}} POST_BUILD COMMAND "${ARM_NONE_EABI_OBJCOPY}" -O ihex ${CMAKE_CURRENT_SOURCE_DIR}/{{build_dir}}/{{name}} ${CMAKE_CURRENT_SOURCE_DIR}/{{build_dir}}/{{name}}.hex)
+add_custom_command(TARGET {{name}} POST_BUILD COMMAND "${ARM_NONE_EABI_OBJCOPY}" -O binary ${CMAKE_BINARY_DIR}/{{name}} ${CMAKE_BINARY_DIR}/{{name}}.bin)
+add_custom_command(TARGET {{name}} POST_BUILD COMMAND "${ARM_NONE_EABI_OBJCOPY}" -O ihex ${CMAKE_BINARY_DIR}/{{name}} ${CMAKE_BINARY_DIR}/{{name}}.hex)
 

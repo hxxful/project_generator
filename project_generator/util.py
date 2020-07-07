@@ -22,7 +22,7 @@ from functools import reduce
 
 FILES_EXTENSIONS = {
     'include_files': ['h', 'hpp', 'inc'],
-    'source_files_s': ['s'],
+    'source_files_s': ['s', 'asm'],
     'source_files_c': ['c'],
     'source_files_cpp': ['cpp', 'cc'],
     'source_files_lib': ['lib', 'ar', 'a'],

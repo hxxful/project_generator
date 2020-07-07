@@ -157,7 +157,7 @@ class uVisionDefinitions():
 class Uvision(Tool, Builder, Exporter):
 
     optimization_options = ['O0', 'O1', 'O2', 'O3']
-    file_types = {'cpp': 8, 'c': 1, 's': 2, 'obj': 3,'o':3, 'lib': 4, 'ar': 4, 'h': 5}
+    file_types = {'cpp': 8, 'c': 1, 's': 2, 'obj': 3,'o':3, 'lib': 4, 'ar': 4, 'h': 5, 'asm': 6}
 
     # flags mapping to uvision uvproj dics
     # for available flags, check armcc/armasm/armlink command line guide

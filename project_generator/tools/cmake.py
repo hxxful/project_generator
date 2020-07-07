@@ -74,7 +74,7 @@ class CMakeGccArm(Tool,Exporter):
         except:
             pass
 
-        self.fix_paths_unix(data_for_make)
+        #self.fix_paths_unix(data_for_make)
 
         generated_projects['path'], generated_projects['files']['cmakelist'] = self.gen_file_jinja(
             'cmakelistgccarm.tmpl', data_for_make, 'CMakeLists.txt', data_for_make['output_dir']['path'])
